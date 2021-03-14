@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+//package TrafficParticipants.EGO; //namesapce
+import "BaseType.proto";
+
+// class EgoObject
+message MovingObjectFormat {
+  required TP_OBJECT_TYPE type = 1;
+  required string name = 3;
+  required int32 id = 4;
+  optional string osgFile = 5;
+  required Pos pos = 6;
+  required Orient  heading = 7;
+  required Orient  speed = 8;
+  required Contour contour = 9;
+}
+
+
+//message EgoObject {
+
+//}
