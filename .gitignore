@@ -2,3 +2,4 @@
 #**AutoGen
 .vscode
 TrafficParticipantObject/**/*.cpp
+Modules/**/*.cpp
