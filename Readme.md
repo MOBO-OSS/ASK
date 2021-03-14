@@ -6,6 +6,14 @@ Rviz is another powerful ROS tool, which is used for visualization, not provide 
 
  The project(ASK) aims to develop a ROS-free tool for SW solution validation and Algo reliable verification, which can be used in multi-domain, e.g. Robot, ADAS, APA, AVP, etc. 
        The project can't be used standalone, it need a front-end which injects signal to ASK.
+## Demo with dummy signal
+
+### 1. ADAS Scenario
+  ![ADAS_DEMO.git](./Data/res/ADAS_DEMO.gif)  ![APA_DEMO.gif](./Data/res/APA_DEMO.gif)
+### 2. Robot Scenario
+  ![AGV_DEMO.git](./Data/res/AGV_DEMO.gif)
+### 2. Robot Demo
+
 ## Scopes
 ### 1.	Not provide simulator function, all the data & signal from real scenarios(On-line, Data/Signal playback, etc. )
 ### 2.	Not provide Algo solution, but help to verify Algo Accuracy & Precision with multi-method, e.g. Position Monitor, Collision Detection, Visualization and also support Report generation. The major features as the following. 
@@ -39,15 +47,6 @@ Rviz is another powerful ROS tool, which is used for visualization, not provide 
 ## Deploy Diagram
  
  ![deployment.png](./Data/res/deployment.png)
-
-## Demo with dummy signal
-
-### 1. ADAS Scenario
-  ![ADAS_DEMO.git](./Data/res/ADAS_DEMO.gif)  ![APA_DEMO.gif](./Data/res/APA_DEMO.gif)
-### 2. Robot Scenario
-  ![AGV_DEMO.git](./Data/res/AGV_DEMO.gif)
-### 2. Robot Demo
-
 
 ## Flexibility: 
 - ROS-Free
