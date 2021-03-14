@@ -4,15 +4,16 @@ Gazebo is a popular ROS tool, which is used for simulation. It’s powerful to s
 
 Rviz is another powerful ROS tool, which is used for visualization, not provide other special features(Concept Validation, Collision Verification, etc.). Meaning while, Pangolin provide almost same feature which is ROS-Free. 
 
- The project(ASK) aims to develop a ROS-free tool for SW solution validation and Algo reliable verification, which can be used in multi-domain, e.g. Robot, ADAS, APA, AVP, etc. 
-       The project can't be used standalone, it need a front-end which injects signal to ASK.
-## Demo with dummy signal
+ The project(ASK) aims to develop a ROS-free tool for SW solution validation and Algo reliability verification, which can be used in multi-domain, e.g. Robot, ADAS, APA, AVP, etc. 
+       The project can't be used standalone, it need a front-end which injects signal to ASK. As to the front-end, let's discuss in another repo.
 
+## Demo with dummy signal
 ### 1. ADAS Scenario
   ![ADAS_DEMO.git](./Data/res/ADAS_DEMO.gif)  ![APA_DEMO.gif](./Data/res/APA_DEMO.gif)
 ### 2. Robot Scenario
   ![AGV_DEMO.git](./Data/res/AGV_DEMO.gif)
 ### 2. Robot Demo
+
 
 ## Scopes
 ### 1.	Not provide simulator function, all the data & signal from real scenarios(On-line, Data/Signal playback, etc. )
@@ -40,13 +41,14 @@ Rviz is another powerful ROS tool, which is used for visualization, not provide 
 >- Motion (PID/MPC) Deviation Assessment 
 >- Object Position drift monitoring after optimization (Filter/Post-process, etc.) 
 >-  To be continue
-> ## Report Generate
->- Report system status
+> ## Report Generating
+>- System status Report
 >- Provide Report analyze tool/script 
 
 ## Deploy Diagram
  
  ![deployment.png](./Data/res/deployment.png)
+
 
 ## Flexibility: 
 - ROS-Free
@@ -77,8 +79,16 @@ Rviz is another powerful ROS tool, which is used for visualization, not provide 
 
 >> Compile:
 >>> 1. Generate Protobuf file: make generate_protobuf_target
->>> 2. Compile lib & Demo: make -i8
+>>> 2. Compile lib & Demo: 
+>>>> - mkdir build
+>>>> - cmake  -DUSE_PUBLIC_CODE=ON ..
+>>>> -  make -j8 
 >>> 3. coding style check: make astyle_check
+
+>> Run Example:
+>>> 1. APA_Demo: ./Examples/APA_Demo
+>>> 2. ADA_Demo: ./Examples/ADAS_Demo
+>>> 3. Robot_AGV_Demo: todo
 > ## 2. Win && Android
 >> TODO 
 
