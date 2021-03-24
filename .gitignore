@@ -3,3 +3,4 @@
 .vscode
 TrafficParticipantObject/**/*.cpp
 Modules/**/*.cpp
+Note.md

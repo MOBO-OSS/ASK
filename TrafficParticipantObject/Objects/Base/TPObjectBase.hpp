@@ -33,6 +33,7 @@
 #include "CommonHPP.hpp"
 #include <cassert>
 #include <osg/Geode>
+#include <osg/Group>
 #include <osg/Geometry>
 #include "TPSensorBase.hpp"
 #include "ObjectBaseinfo.hpp"
@@ -42,27 +43,25 @@ class TPScene;
 class TPTrajectoryBase;
 // template<class ObjecDataFormat>
 // using PointBuf = RingBuffer<osg::Vec3f, 100, false>;
-class OSG_EXPORT TPObjectBase : public osg::Geode, public ObjectBaseinfo
+
+class OSG_EXPORT TPObjectBase : public osg::Group, public ObjectBaseinfo
 //: public osg::Geometry
 {
 
 public:
     explicit TPObjectBase(const uint32 ID, const TP_OBJECT_TYPE type);
 
-    // virtual void updateObjectFormat(ObjecDataFormat format) = 0;
+    virtual void createGeometry(/* args */) = 0;
 
-    osg::ref_ptr<osg::Vec3Array> m_vert;
-    osg::ref_ptr<osg::Vec4Array> m_color;
-    osg::ref_ptr<osg::Geometry>  m_geom;
-
-
+    osg::ref_ptr<TPSensorBase> m_observerSensor;
+    virtual ~TPObjectBase();
 
 private:
-    std::unique_ptr<TPTrajectoryBase> m_track;
-    // PointBuf m_pointBuf;
+
 
 protected:
-    virtual ~TPObjectBase();
+    // std::unique_ptr<TPTrajectoryBase> m_track;
+    // PointBuf m_pointBuf;
 
 };
 

@@ -40,6 +40,10 @@
 #include "AutoGen/Protobuf/MovingObjectFormat.pb.h"
 #include "MovingObject.hpp"
 #include "ObjectBaseinfo.hpp"
+#include "Ringbuff.hpp"
+
+#define MaxPotCont 100
+
 class MovingObjectNodeCallback : public osg::NodeCallback
 {
 public:
@@ -56,48 +60,62 @@ protected:
     unsigned int _count;
 };
 
-class MovingObject: public osg::Group, public ObjectBaseinfo
+
+class MovingObject: public TPObjectBase
 {
 private:
     /* data */
     MovingObjectFormat m_MovingObjectFormat;
     osg::ref_ptr<osg::Node>  m_model;
     // TP_OBJECT_TYPE m_objecType;
-    osg::ref_ptr<osg::MatrixTransform> m_trans;
-    osg::ref_ptr<TPTrajectoryBase> m_track;
+
     float m_headingAngle;
     // osg::ref_ptr<osg::Geode> m_boudingBox;
+
+    RingBuffer<osg::Vec3d, MaxPotCont>  m_predictPots;
+
+
+    osg::Matrixd m_finalMat;
+
+    void createGeometry();
+    void drawContour();
+
+    void updateObjectFormat(std::shared_ptr<MovingObjectFormat> &format);
+
+public:
+    MovingObject(uint32 ID, TP_OBJECT_TYPE type):TPObjectBase(ID, type)
+    {
+        // osg::ref_ptr<osg::Geode> m_boudingBox = new osg::Geode();
+        m_trans =  new osg::MatrixTransform();
+        m_modelScale = new osg::MatrixTransform();
+        m_track = new TPTrajectoryBase();
+        m_pred = new TPTrajectoryBase(LINE_TYPE_DASHED_TYPE1);
+
+        createGeometry();
+    }
+    ~MovingObject() {}
+
+
+    osg::Vec3 getObjectPos();
+
+    virtual bool updateObjectPos(const osg::Vec3d & deltTrans);
+    virtual bool updateHeading(const float & headingAngle);
+
+    virtual bool updatePredictTra(const  osg::Vec3d & pos, const COORD_TYPE type = COORD_TYPE_LOCAL_OSG);
+    virtual bool updatePredictTra(const  osg::Vec3Array & posArray, const COORD_TYPE type = COORD_TYPE_LOCAL_OSG);
+
+    osg::Matrixd calFinalMat();
 
     osg::Matrixd m_sacleMat;
     osg::Matrixd m_RoationMat;
     osg::Matrixd m_RoationSelfMat;
     osg::Matrixd m_transMat;
 
-    osg::Matrixd m_finalMat;
+    osg::ref_ptr<TPTrajectoryBase> m_track;
+    osg::ref_ptr<TPTrajectoryBase> m_pred;
 
-    osg::Matrixd calFinalMat();
-
-    void createGeometry();
-    void drawContour();
-
-    void updateObjectFormat(std::shared_ptr<MovingObjectFormat> &format);
-public:
-    MovingObject(uint32 ID, TP_OBJECT_TYPE type):ObjectBaseinfo(ID, type)
-    {
-        // osg::ref_ptr<osg::Geode> m_boudingBox = new osg::Geode();
-        m_trans =  new osg::MatrixTransform();
-        m_track = new TPTrajectoryBase();
-        
-        createGeometry();
-    }
-    ~MovingObject() {}
-    
-
-    osg::Vec3 getObjectPos();
-
-    bool updateObjectPos(const osg::Vec3d & deltTrans);
-    bool updateHeading(const float & headingAngle);
-    osg::ref_ptr<TPSensorBase> m_observerSensor;
+    osg::ref_ptr<osg::MatrixTransform> m_trans;
+    osg::ref_ptr<osg::MatrixTransform> m_modelScale;
 
 };
 

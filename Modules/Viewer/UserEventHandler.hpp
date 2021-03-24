@@ -101,7 +101,7 @@ protected:
                     for (int i = np.size() - 1; i >= 0; --i) {
                         printf("intersection size:%d \n",np.size());
 
-                        TPObjectBase* sc = dynamic_cast<TPObjectBase *>(np[i]);
+                        TPObjectBase* sc = dynamic_cast<TPParkingSlotObject *>(np[i]);
                         if (sc != NULL) {
                             printf("get node\n");
                             if (sc->getNodeMask() != 0)

@@ -31,10 +31,12 @@ private:
     osg::ref_ptr<EgoObject> m_ego;
     osg::ref_ptr<TPHUD> m_HUD;
 
-    //! todo: merge the tweo
+    //! todo: merge to same vector
     std::vector<std::map<int, osg::ref_ptr<TPObjectBase>>> m_TPOBuff;
-    std::vector<std::map<int,  osg::ref_ptr<MovingObject>>> m_MoveTPOBuff;
-    std::vector<std::map<int,  osg::ref_ptr<EgoObject>>> m_EgoTPOBuff;
+    // std::vector<std::map<int,  osg::ref_ptr<MovingObject>>> m_MoveTPOBuff;
+    // std::vector<std::map<int,  osg::ref_ptr<EgoObject>>> m_EgoTPOBuff;
+
+    std::vector<int> m_TPOMaxId;
 
 public:
     ~TPScene();
@@ -51,8 +53,7 @@ public:
     void removeTPObject(osg::ref_ptr<TPObjectBase>  object, osg::ref_ptr<TPSensorBase> senseor);
 
     void updateTPObject(osg::ref_ptr<TPObjectBase>  object);
-    void updateTPObject(osg::ref_ptr<MovingObject>  object);
-    void updateTPObject(osg::ref_ptr<EgoObject>  object);
+    // void updateTPObject(osg::ref_ptr<MovingObject>  object);
 
     bool addNewSensor(osg::ref_ptr<TPSensorBase>  senseor);
     osg::ref_ptr<osg::Node>  getSensorNode(std::string name);

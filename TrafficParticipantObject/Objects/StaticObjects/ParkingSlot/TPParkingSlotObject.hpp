@@ -47,6 +47,12 @@ private:
     std::shared_ptr<ParkingSlotObjectFormat> m_objectFormat;
     void createGeometry();
 
+    osg::ref_ptr<osg::Geode> m_geode;
+    osg::ref_ptr<osg::Vec3Array> m_vert;
+    osg::ref_ptr<osg::Vec4Array> m_color;
+    osg::ref_ptr<osg::Geometry>  m_geom;
+
+
 #if 0
     void setupProperties(osgText::Font* font,float size,const osg::Vec3& pos );
     void createContent(const char* string);
@@ -59,6 +65,15 @@ public:
     TPParkingSlotObject(uint32 ID): TPObjectBase( ID,  TP_OBJECT_TYPE_S_PS)
     {
         osg::ref_ptr<osgText::Text> title=new osgText::Text;
+
+        m_geode =  new osg::Geode();
+
+        m_geom = new osg::Geometry();
+        m_geom->setDataVariance(osg::Object::DYNAMIC);
+
+        m_vert = new osg::Vec3Array();
+        m_color = new osg::Vec4Array();
+
 #if 0
         m_fontKai =osgText::readFontFile("../Data/fronts/simkai.ttf");
         if(m_fontKai) {

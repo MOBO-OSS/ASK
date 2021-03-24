@@ -27,8 +27,9 @@
 * Author: Mobo
 * Mail: mobojingjiniao@126.com
 */
-#ifndef __TP_SENSEROR_UNKNOW_H__
-#define __TP_SENSEROR_UNKNOW_H__
+
+#pragma once
+
 #include "TPSensorBase.hpp"
 
 class TPSensorUnknow : public TPSensorBase
@@ -36,25 +37,18 @@ class TPSensorUnknow : public TPSensorBase
 private:
     /* data */
 public:
-    TPSensorUnknow(uint8 ID);
-    ~TPSensorUnknow();
+    TPSensorUnknow(uint8 ID):TPSensorBase(TP_SENSOR_TYPE_UNKNOW, ID )
+    {
+    }
+    ~TPSensorUnknow()
+    {
 
-    void setSensorPostion(osg::Vec3 pos);
+    }
+
+    void setSensorPostion(osg::Vec3 pos)
+    {
+        //this->mat
+    }
 };
 
-TPSensorUnknow::TPSensorUnknow(uint8 ID):TPSensorBase(TP_SENSOR_TYPE_UNKNOW, ID )
-{
-}
 
-TPSensorUnknow::~TPSensorUnknow()
-{
-}
-
-void TPSensorUnknow::setSensorPostion(osg::Vec3 pos)
-{
-    //this->mat
-}
-
-
-
-#endif

@@ -78,7 +78,7 @@ void runRobot1()
 {
     osg::ref_ptr<EgoObject>  EGO = new EgoObject(1);
     EGO->m_observerSensor = unknowSensor;
-    TPScene::getInstance().updateTPObject(EGO);
+    TPScene::getInstance().updateTPObject(dynamic_cast<MovingObject *> (EGO.get()));
 
     EGO->setEgoPos(osg::Vec3f(-1000.0f,100.0f,0.0f));
     EGO->updateHeading(-90.0f);
@@ -92,8 +92,8 @@ void runRobot1()
             EGO->updateEgoPos(egoPos);
             // EGO->updateHeading(atan((0.5 + 0.008*(i*i - (i-1)*(i-1)))*10.0f));
             usleep(8000);
-    
-            
+
+
         }
 
         EGO->updateHeading(180.0f);
@@ -126,8 +126,8 @@ void runRobot2()
             EGO->updateEgoPos(egoPos);
             // EGO->updateHeading(atan((0.5 + 0.008*(i*i - (i-1)*(i-1)))*10.0f));
             usleep(8000);
-    
-            
+
+
         }
 
         EGO->updateHeading(90.0f);

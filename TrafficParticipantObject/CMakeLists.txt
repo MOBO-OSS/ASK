@@ -16,6 +16,7 @@ SET(LIB_NAME TPO)
 
  #Const object
  AUX_SOURCE_DIRECTORY(Objects/ConstObjects/EGO DIR_TPO_S_EGO_SRCS)
+ AUX_SOURCE_DIRECTORY(Objects/ConstObjects/EGO/CollisionCheck DIR_COLLCHECK_SRCS)
  AUX_SOURCE_DIRECTORY(Objects/ConstObjects/Ground DIR_TPO_S_GROUND_SRCS)
 
  #dynamic object
@@ -45,6 +46,7 @@ SET(LIB_NAME TPO)
             ${DIR_TPO_S_LANE_SRCS}
             ${DIR_TPO_S_PS_SRCS}
             ${DIR_TPO_S_EGO_SRCS}
+            ${DIR_COLLCHECK_SRCS}
             ${DIR_TPO_S_GROUND_SRCS}
             ${DIR_TPO_SCENE_SRCS} 
             ${DIR_TPO_SENSOR_SRCS}

@@ -119,31 +119,31 @@ void run()
     osg::ref_ptr<TPSensorBase> cameraSensor = new TPSensorCamera(1, 40.0f);
     TPScene::getInstance().addNewSensor(cameraSensor);
 
-     //! moving Object
-     osg::ref_ptr<MovingObject> pedestrain = new MovingObject(0, TP_OBJECT_TYPE_D_PEDESTRAIN);
-     pedestrain->m_observerSensor = unknowSensor;
-     // pedestrain->updateObjectFormat(psPar);
-     pedestrain->updateObjectPos(osg::Vec3d(200, 200, 0));
-     TPScene::getInstance().updateTPObject(pedestrain);
- 
-     
-     int d = 2000;
-     osg::ref_ptr<MovingObject> truck = new MovingObject(0, TP_OBJECT_TYPE_D_TRUCK);
-     truck->m_observerSensor = unknowSensor;
-     truck->updateObjectPos(osg::Vec3d(500 +  0.005 * d + 0.0001 * d *d ,d, 0));
-     TPScene::getInstance().updateTPObject(truck);
- 
-     osg::ref_ptr<MovingObject> truck1 = new MovingObject(1, TP_OBJECT_TYPE_D_TRUCK);
-     truck1->m_observerSensor = unknowSensor;
-     truck1->updateObjectPos(osg::Vec3d(0.0f, d, 0));
-     TPScene::getInstance().updateTPObject(truck1);
+    //! moving Object
+    osg::ref_ptr<MovingObject> pedestrain = new MovingObject(0, TP_OBJECT_TYPE_D_PEDESTRAIN);
+    pedestrain->m_observerSensor = unknowSensor;
+    // pedestrain->updateObjectFormat(psPar);
+    pedestrain->updateObjectPos(osg::Vec3d(200, 200, 0));
+    TPScene::getInstance().updateTPObject(pedestrain);
 
-     int d1 = 1000;
-     osg::ref_ptr<MovingObject> car = new MovingObject(0, TP_OBJECT_TYPE_D_CAR);
-     car->m_observerSensor = unknowSensor;
-     // pedestrain->updateObjectFormat(psPar);
-     car->updateObjectPos(osg::Vec3d(500 + 0.005 * d1 + 0.0001 * d1 *d1 ,d1, 0));
-     TPScene::getInstance().updateTPObject(car);
+
+    int d = 2000;
+    osg::ref_ptr<MovingObject> truck = new MovingObject(0, TP_OBJECT_TYPE_D_TRUCK);
+    truck->m_observerSensor = unknowSensor;
+    truck->updateObjectPos(osg::Vec3d(500 +  0.005 * d + 0.0001 * d *d ,d, 0));
+    TPScene::getInstance().updateTPObject(truck);
+
+    osg::ref_ptr<MovingObject> truck1 = new MovingObject(1, TP_OBJECT_TYPE_D_TRUCK);
+    truck1->m_observerSensor = unknowSensor;
+    truck1->updateObjectPos(osg::Vec3d(0.0f, d, 0));
+    TPScene::getInstance().updateTPObject(truck1);
+
+    int d1 = 1000;
+    osg::ref_ptr<MovingObject> car = new MovingObject(0, TP_OBJECT_TYPE_D_CAR);
+    car->m_observerSensor = unknowSensor;
+    // pedestrain->updateObjectFormat(psPar);
+    car->updateObjectPos(osg::Vec3d(500 + 0.005 * d1 + 0.0001 * d1 *d1 ,d1, 0));
+    TPScene::getInstance().updateTPObject(car);
 
 
 

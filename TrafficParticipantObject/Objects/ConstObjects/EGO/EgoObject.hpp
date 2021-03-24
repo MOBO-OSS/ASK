@@ -34,10 +34,16 @@
 #include <osgDB/ReaderWriter>
 #include <osgDB/Archive>
 #include <osgDB/ReadFile>
+#include <osg/LOD>
 #include "TPObjectBase.hpp"
 #include "TPTrajectoryBase.hpp"
 #include "AutoGen/Protobuf/EgoObjectFormat.pb.h"
+#include "DynamicObjects/MovingObject/MovingObject.hpp"
+#include <osg/BoundingBox>
+#include <osg/ComputeBoundsVisitor>
+#include "CollisionCheck/EGOCollisionCheck.hpp"
 
+// #include <osgUtil/IntersectVisitor>
 
 class TPScene;
 class EgoNodeCallback : public osg::NodeCallback
@@ -57,44 +63,59 @@ protected:
     unsigned int _count;
 };
 
-class EgoObject: public osg::Group, public ObjectBaseinfo
+class EGOCollisionCheck;
+class MovingObject;
+class EgoObject: public MovingObject
 {
 private:
     /* data */
     EgoObjectFormat m_egoObjectFormat;
     osg::ref_ptr<osg::Node>  m_ego;
-    //TP_OBJECT_TYPE m_type;
-    osg::ref_ptr<osg::MatrixTransform> m_trans;
-    osg::ref_ptr<TPTrajectoryBase> m_track;
+
     float m_headingAngle;
 
+
+    std::shared_ptr<EGOCollisionCheck> m_collisionCheck;
+
+    osg::ref_ptr<osg::LOD> m_LOD;
+
+
+    osg::BoundingBox m_boundingBox;
+    std::unique_ptr<std::thread> m_ckThread;
+
+
     void createGeometry();
+    void updateCollisionCheckBoundary();
 
-    osg::Matrixd m_sacleMat;
-    osg::Matrixd m_RoationMat;
-    osg::Matrixd m_RoationSelfMat;
-    osg::Matrixd m_transMat;
-
-    osg::Matrixd m_finalMat;
-
-    osg::Matrixd calFinalMat();
 
 public:
-    EgoObject(uint32 ID): ObjectBaseinfo(ID, TP_OBJECT_TYPE_EGO)
+    EgoObject(uint32 ID): MovingObject(ID, TP_OBJECT_TYPE_EGO)
     {
-        m_trans =  new osg::MatrixTransform();
-        m_track = new TPTrajectoryBase();
+
         m_objectName = "EGO";
         m_objectInfo = new char[MAX_OBJECT_INFO_SIZE];
 
+        m_LOD = new osg::LOD();
+
+        m_collisionCheck = std::make_shared<EGOCollisionCheck>();
+
         createGeometry();
     }
-    ~EgoObject() {}
+    ~EgoObject()
+    {
+
+        warn("deconstruct Ego Object");
+    }
 
     osg::Vec3 getEgoPos();
     bool updateEgoPos(const osg::Vec3d & deltTrans);
     bool updateHeading(const float & heading);
     bool setEgoPos(const osg::Vec3d & pos);
+
+    const osg::ref_ptr<osgUtil::IntersectionVisitor> getIntersectionVisitor()
+    {
+        return m_collisionCheck->getIntersectionVisitor();
+    };
 
 };
 

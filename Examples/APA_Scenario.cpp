@@ -125,14 +125,14 @@ void run()
     osg::ref_ptr<MovingObject> pedestrain = new MovingObject(0, TP_OBJECT_TYPE_D_PEDESTRAIN);
     pedestrain->m_observerSensor = unknowSensor;
     // pedestrain->updateObjectFormat(psPar);
-    pedestrain->updateObjectPos(osg::Vec3d(350, 200, 0));
+    pedestrain->updateObjectPos(osg::Vec3d(150, 200, 0));
     TPScene::getInstance().updateTPObject(pedestrain);
 
-    
+
     osg::ref_ptr<MovingObject> truck = new MovingObject(0, TP_OBJECT_TYPE_D_TRUCK);
     truck->m_observerSensor = unknowSensor;
     // pedestrain->updateObjectFormat(psPar);
-    truck->updateObjectPos(osg::Vec3d(200, 1500, 0));
+    truck->updateObjectPos(osg::Vec3d(100, 1500, 0));
     TPScene::getInstance().updateTPObject(truck);
 
 
@@ -143,7 +143,7 @@ void run()
     // dogcontor->set
 
     // dog->updateObjectFormat(dogPar);
-    dog->updateObjectPos(osg::Vec3d(300, 250, 0));                
+    dog->updateObjectPos(osg::Vec3d(300, 250, 0));
     TPScene::getInstance().updateTPObject(dog);
 
     //! Parking slot info
@@ -231,11 +231,11 @@ void run()
     }
 
     //! feature points
-    int pointId = 0;
-    TPPointObject * pointObj =  new TPPointObject(pointId++);
+    int pointId = 1;
+    TPPointObject * pointObj =  new TPPointObject();
     std::shared_ptr<PointObjectFormat> pointFormat  = std::make_shared<PointObjectFormat>();
 
-    TPPointObject * pointObj1 =  new TPPointObject(pointId++);
+    TPPointObject * pointObj1 =  new TPPointObject();
     std::shared_ptr<PointObjectFormat> pointFormat1  = std::make_shared<PointObjectFormat>();
 
     for(int i = 0; i < 100; i++) {
@@ -273,23 +273,48 @@ void run()
     // // Point  pointFormat->
     sleep(15);
     osg::Vec3  egoPos1 = viewer.getEgoObject()->getEgoPos();
+    int predictPotCnt = 50;
+    osg::ref_ptr< osg::Vec3Array> predicTra = new osg::Vec3Array(predictPotCnt);
+
+
     while(1) {
 
         for(int i =1; i < 750;  i+=1) {
-            osg::Vec3  egoPos(1, 0.5 + 0.008*(i*i - (i-1)*(i-1)), 0);
+            predicTra->clear();
+            // predicTra->empty();
+
+            // osg::Vec3  egoPos(1, 0.5 + 0.008*(i*i - (i-1)*(i-1)), 0);
+            osg::Vec3  egoPos(1, 0.5 + 0.016*i, 0);
             viewer.getEgoObject()->updateEgoPos(egoPos);
 
-            viewer.getEgoObject()->updateHeading(-90.0f + atan((0.5f + 0.008*(i*i - (i-1)*(i-1))))*180.0f/3.1415f);
+            for(int index = i; index < i+predictPotCnt; index++) {
+                predicTra->push_back(osg::Vec3f(1.0f*index - viewer.getEgoObject()->getEgoPos().x(), (0.5f *index + 0.008f* index * index) - viewer.getEgoObject()->getEgoPos().y(), 0));
+                //    predicTra->push_back(osg::Vec3f(1.0f*index, (0.5f *index + 0.004f* index * index)  , 0));
+            }
+
+            viewer.getEgoObject()->updatePredictTra(*predicTra);
+
+            // viewer.getEgoObject()->updateHeading(-90.0f + atan((0.5f + 0.008*(i*i - (i-1)*(i-1))))*180.0f/3.1415f);
+            viewer.getEgoObject()->updateHeading(-90.0f + atan(0.5f + 0.016*i)*180.0f/3.1415f);
             // viewer.getEgoObject()->updateHeading(-i *25.f/800.0);
-            usleep(10000);
+            usleep(5000);
         }
 
-        for(int i =1; i < 1000;  i+=1) {
-            osg::Vec3  egoPos(-1, -0.5 - 0.005*(i*i - (i-1)*(i-1)), 0);
+        for(int i =1; i < 850;  i+=1) {
+            //predicTra->clear();
+            osg::Vec3  egoPos(-1, -0.5 - 0.010*i, 0);
             viewer.getEgoObject()->updateEgoPos(egoPos);
+
+            // for(int index = i; index < i+predictPotCnt; index++) {
+            //     predicTra->push_back(osg::Vec3f(-1.0f*index + viewer.getEgoObject()->getEgoPos().x(), (-0.5f *index - 0.005f* index * index) + viewer.getEgoObject()->getEgoPos().y(), 0));
+            //  }
+
+            //  printf("%d\n", predicTra->size());
+            //  viewer.getEgoObject()->updatePredictTra(*predicTra);
+
             // viewer.getEgoObject()->updateHeading(i *25.f/1000.0);
             viewer.getEgoObject()->updateHeading(90.0f -  atan((-0.5f - 0.005*(i*i - (i-1)*(i-1))))*180.0f/3.1415f);
-            usleep(8000);
+            usleep(5000);
 
         }
 

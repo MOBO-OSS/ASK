@@ -57,9 +57,6 @@ public:
 
     COORD_TYPE m_coordType;
 
-    virtual void createGeometry(/* args */) = 0;
-
-    osg::ref_ptr<TPSensorBase> m_observerSensor;
 
     uint32 getObjectUUId()
     {

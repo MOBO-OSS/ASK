@@ -279,12 +279,15 @@ void AddDescriptorsImpl() {
       "OR_TYPE_CAMERA\020\001\022\026\n\022TP_SENSOR_TYPE_USS\020\002"
       "\022\030\n\024TP_SENSOR_TYPE_RADAR\020\003\022\030\n\024TP_SENSOR_"
       "TYPE_LIDAR\020\004\022\032\n\026TP_SENSOR_TYPE_RESERVE\020\005"
-      "*q\n\nCOORD_TYPE\022\027\n\023COORD_TYPE_UNDEFINE\020\000\022"
-      "\024\n\020COORD_TYPE_LOCAL\020\001\022\034\n\030COORD_TYPE_GLOB"
-      "AL_DIN70K\020\002\022\026\n\022COORD_TYPE_RESERVE\020\n"
+      "*\307\001\n\nCOORD_TYPE\022\027\n\023COORD_TYPE_UNDEFINE\020\000"
+      "\022\030\n\024COORD_TYPE_LOCAL_OSG\020\001\022\031\n\025COORD_TYPE"
+      "_GLOBAL_OSG\020\002\022\034\n\030COORD_TYPE_GLOBAL_DIN70"
+      "K\020\003\022\033\n\027COORD_TYPE_LOCAL_CAMERA\020\004\022\030\n\024COOR"
+      "D_TYPE_LOCAL_IMU\020\005\022\026\n\022COORD_TYPE_RESERVE"
+      "\020\n"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1155);
+      descriptor, 1242);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "BaseType.proto", &protobuf_RegisterTypes);
 }
@@ -358,6 +361,9 @@ bool COORD_TYPE_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
+    case 4:
+    case 5:
     case 10:
       return true;
     default:

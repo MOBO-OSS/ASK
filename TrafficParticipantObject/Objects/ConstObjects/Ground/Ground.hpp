@@ -58,6 +58,7 @@ private:
     uint32 m_width;
     uint32 m_length;
 
+    osg::ref_ptr<osg::Geode> m_geode;
     osg::ref_ptr<osg::Vec3Array> m_vert;
     osg::ref_ptr<osg::Vec4Array> m_color;
     osg::ref_ptr<osg::Geometry>  m_geom;
