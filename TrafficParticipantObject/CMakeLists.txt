@@ -37,6 +37,13 @@ SET(LIB_NAME TPO)
 #  AUX_SOURCE_DIRECTORY(CatagoryGround DIR_GROUND_SRCS)
 #  AUX_SOURCE_DIRECTORY(CatagoryRawSensors DIR_RAWSENSOR_SRCS)
 
+ if(USE_PUBLIC_CODE) 
+ 	message("using Punlic Code")
+ 	LIST(APPEND COMP_DEP_MODULES TPOs MODULESs)
+ else()
+ 	message("using Private Code")
+ 	LIST(APPEND COMP_DEP_MODULES TPO MODULES)
+
  ADD_LIBRARY (${LIB_NAME}  STATIC
             ${DIR_TPO_SRCS} 
             ${DIR_TPO_BASE_SRCS} 
@@ -58,3 +65,5 @@ set_target_properties(${LIB_NAME} PROPERTIES
       OUTPUT_NAME ${LIB_NAME}s
       ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib) 
 # message(${PROJECT_SOURCE_DIR}/lib)
+
+ endif()
